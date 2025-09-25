@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auto Parts Churn Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Predict Customer Churn</h1>
+    <form method="POST" action="/predict">
+        <label>Customer Age (25-65):</label><input type="number" name="age" required><br>
+        <label>Purchase History (1-10):</label><input type="number" name="purchase_history" required><br>
+        <label>Price ($100-500):</label><input type="number" name="price" step="0.01" required><br>
+        <label>Discount (0-0.3):</label><input type="number" name="discount" step="0.01" required><br>
+        <label>Stock Level (0-50):</label><input type="number" name="stock_level" required><br>
+        <input type="submit" value="Predict Churn">
+    </form>
+    {% if prediction is defined %}
+        <h2>Result</h2>
+        <p>Churn: {{ 'Yes' if prediction == 1 else 'No' }}</p>
+        <p>Churn Probability: {{ probability|round(2) }}</p>
+    {% endif %}
+</body>
+</html>
